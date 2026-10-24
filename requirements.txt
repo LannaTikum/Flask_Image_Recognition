@@ -1,5 +1,6 @@
-Flask==2.2.1
-keras==2.9.0
-numpy==1.23.2
-Pillow==9.3.0
-tensorflow==2.10.0
+# Runtime dependencies (tested with Python 3.11)
+Flask==3.0.3
+keras==2.15.0
+numpy==1.26.4
+Pillow==10.4.0
+tensorflow==2.15.1
