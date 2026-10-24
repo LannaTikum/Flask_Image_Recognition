@@ -26,34 +26,53 @@ https://user-images.githubusercontent.com/72191416/201943098-c8f5fd8b-ec7d-4e5d-
 
 # Get Started
 
-Clone the repository in your project directory.
+Requires **Python 3.11** (TensorFlow 2.15 supports Python 3.9 to 3.11).
 
 ```commandline
-git clone https://github.com/Sachin-crypto/Flask_Image_Recognition.git
+git clone <your-repository-url>
+cd Flask_Image_Recognition
+python -m venv venv
 ```
-OR
 
-Download as **[ZIP](https://github.com/Sachin-crypto/Flask_Image_Recognition/archive/refs/heads/main.zip)** file and extract it in your project directory.
+Activate the virtual environment:
+
+```commandline
+# Windows (PowerShell)
+venv\Scripts\Activate.ps1
+# macOS / Linux
+source venv/bin/activate
+```
 
 # Install Dependencies
 
-Install the dependencies from the **requirements.txt** file.
-
 ```commandline
-pip install -r requirements.txt
+pip install -r requirements.txt        # run the app
+pip install -r requirements-dev.txt    # app + pylint, pytest, pre-commit
 ```
 
 # Run
 
-**cd** into the current directory and run the script.
-
 ```commandline
 flask --app app.py run --debug
 ```
-Click [here](https://geekpython.in/run-flask-app-from-the-command-line-in-windows) to get the detailed guide on running the Flask app from the command line.
 
-# Test
+Open http://127.0.0.1:5000, choose an image from the `test_images` folder, and click **Submit**.
 
-- Choose an image from the test images folder.
-- You will see a preview of the uploaded image.
-- Click on **Submit** button and see the magic.
+# Code Quality and Tests
+
+```commandline
+pylint app.py model.py tests      # static analysis (.pylintrc)
+pytest                            # unit tests + real-model integration tests
+pre-commit install                # run checks automatically on commit/push
+pre-commit run --all-files        # run every hook on the whole repository
+```
+
+Unit tests mock the Keras model, so they run in under a second. Tests in
+`tests/test_integration.py` load the real model and are skipped if TensorFlow
+is not installed.
+
+# Continuous Integration
+
+`.github/workflows/ci.yml` runs on every push and pull request: it checks out
+the code, sets up Python 3.11, installs `requirements-dev.txt`, runs Pylint and
+pytest, and writes a pass/fail summary to the run page.
